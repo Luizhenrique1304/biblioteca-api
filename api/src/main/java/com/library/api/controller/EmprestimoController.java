@@ -3,6 +3,7 @@ package com.library.api.controller;
 import com.library.api.dto.EmprestimoRequestDto;
 import com.library.api.dto.EmprestimoResponseDto;
 import com.library.api.service.EmprestimoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,14 @@ public class EmprestimoController {
     }
 
     @PostMapping
-    public ResponseEntity<EmprestimoResponseDto> save(@RequestBody EmprestimoRequestDto dto) {
+    public ResponseEntity<EmprestimoResponseDto> save(@Valid @RequestBody EmprestimoRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(emprestimoService.save(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<EmprestimoResponseDto> update(@PathVariable Long id,
-                                                        @RequestBody EmprestimoRequestDto dto) {
+                                                        @Valid @RequestBody EmprestimoRequestDto dto) {
         return ResponseEntity.ok(emprestimoService.update(id, dto));
     }
 

@@ -2,13 +2,11 @@ package com.library.api.service;
 
 import com.library.api.dto.AutorRequestDto;
 import com.library.api.dto.AutorResponseDto;
+import com.library.api.exception.ResourceNotFoundException;
 import com.library.api.model.Autor;
 import com.library.api.repository.AutorRepository;
-import jakarta.persistence.metamodel.SingularAttribute;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -32,7 +30,7 @@ public class AutorService {
     public AutorResponseDto findById(Long id) {
 
         Autor autor = autorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Autor não encontrado"));
 
         return new AutorResponseDto(
                 autor.getId(),
@@ -54,7 +52,7 @@ public class AutorService {
     public AutorResponseDto update(Long id, AutorRequestDto dto) {
 
         Autor autor = autorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Autor não encontrado"));
 
         autor.setNome(dto.nome());
 

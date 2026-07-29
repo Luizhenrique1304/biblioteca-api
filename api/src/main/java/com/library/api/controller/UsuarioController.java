@@ -3,6 +3,7 @@ package com.library.api.controller;
 import com.library.api.dto.UsuarioRequestDto;
 import com.library.api.dto.UsuarioResponseDto;
 import com.library.api.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,14 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> save(@RequestBody UsuarioRequestDto dto) {
+    public ResponseEntity<UsuarioResponseDto> save(@Valid @RequestBody UsuarioRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(usuarioService.save(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto> update(@PathVariable Long id,
-                                                     @RequestBody UsuarioRequestDto dto) {
+                                                     @Valid @RequestBody UsuarioRequestDto dto) {
         return ResponseEntity.ok(usuarioService.update(id, dto));
     }
 

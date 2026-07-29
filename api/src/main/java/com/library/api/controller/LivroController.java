@@ -3,6 +3,7 @@ package com.library.api.controller;
 import com.library.api.dto.LivroRequestDto;
 import com.library.api.dto.LivroResponseDto;
 import com.library.api.service.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,14 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<LivroResponseDto> save(@RequestBody LivroRequestDto dto) {
+    public ResponseEntity<LivroResponseDto> save(@Valid @RequestBody LivroRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(livroService.save(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LivroResponseDto> update(@PathVariable Long id,
-                                                   @RequestBody LivroRequestDto dto) {
+                                                   @Valid @RequestBody LivroRequestDto dto) {
         return ResponseEntity.ok(livroService.update(id, dto));
     }
 

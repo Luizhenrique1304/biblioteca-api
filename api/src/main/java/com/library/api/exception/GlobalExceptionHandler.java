@@ -1,5 +1,6 @@
 package com.library.api.exception;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,5 +20,15 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now().toString()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(RegraDeNegocioException.class)
+    public ResponseEntity<Map<String, Object>> handleRegraDeNegocio(RegraDeNegocioException ex) {
+        Map<String, Object> body = Map.of(
+                "status", HttpStatus.BAD_REQUEST.value(),
+                "erro", ex.getMessage(),
+                "timestamp", LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 }

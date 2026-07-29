@@ -2,6 +2,7 @@ package com.library.api.service;
 
 import com.library.api.dto.UsuarioRequestDto;
 import com.library.api.dto.UsuarioResponseDto;
+import com.library.api.exception.ResourceNotFoundException;
 import com.library.api.model.Usuario;
 import com.library.api.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class UsuarioService {
     public UsuarioResponseDto findById(Long id) {
 
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         return new UsuarioResponseDto(
                 usuario.getId(),
@@ -57,7 +58,7 @@ public class UsuarioService {
     public UsuarioResponseDto update(Long id, UsuarioRequestDto dto) {
 
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());

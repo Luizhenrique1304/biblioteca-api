@@ -4,6 +4,7 @@ package com.library.api.controller;
 import com.library.api.dto.AutorRequestDto;
 import com.library.api.dto.AutorResponseDto;
 import com.library.api.service.AutorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +32,14 @@ public class AutorController {
     }
 
     @PostMapping
-    public ResponseEntity<AutorResponseDto> save(@RequestBody AutorRequestDto dto) {
+    public ResponseEntity<AutorResponseDto> save(@Valid @RequestBody AutorRequestDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(autorService.save(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AutorResponseDto> update(@PathVariable Long id,
-                                                   @RequestBody AutorRequestDto dto) {
+                                                   @Valid @RequestBody AutorRequestDto dto) {
         return ResponseEntity.ok(autorService.update(id, dto));
     }
 
